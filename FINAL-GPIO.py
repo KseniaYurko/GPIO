@@ -1,19 +1,20 @@
-import pyfirmata
+import RPi.GPIO as GPIO
 import time
 
-board = pyfirmata.Arduino("COM4")
-N = [2,3,4,5,6,7,8,9]
+GPIO.setmode(GPIO.BCM)
+N = [24,25,8,7,12,16,20,21]
+GPIO.setup(N, GPIO.OUT)
 
 def closeAll(all):
     for i in range (len(N)):
-        board.digital[N[i]].write(0)
+        GPIO.output(N[i],0)
 
 print ('ЗДАДАНИЕ №1 - lightUp')
 print ('Свечение заданной лампочки заданное время.')
 def lightUp(ledNumber, period):
-    board.digital[N[ledNumber]].write(1)
+    GPIO.output(N[ledNumber],1)
     time.sleep(period)
-    board.digital[N[ledNumber]].write(0)
+    GPIO.output(N[ledNumber],0)
 ledNumber = int(input('Введи номер светодиода: '))
 period = float(input('Время: '))
 lightUp(ledNumber, period)
@@ -22,9 +23,9 @@ print()
 
 #ЗДАДАНИЕ №1* - lightDown - для №5
 def lightDown(lednumber,period):
-    board.digital[N[ledNumber]].write(0)
+    GPIO.output(N[ledNumber],0)
     time.sleep(period)
-    board.digital[N[ledNumber]].write(1)
+    GPIO.output(N[ledNumber],1)
 
 
 print ('ЗДАДАНИЕ №2 - blink')
@@ -62,7 +63,7 @@ print ('ЗДАДАНИЕ №4 - runningDark')
 print ('"Бегущий огонек" с заданного номера светодиода')
 def runningDark(count, period):
     for i in range (8):
-        board.digital[N[i]].write(1)
+        GPIO.output(N[i],1)
     for i in range(count):
         lightDown(ledNumber, period)
         if N[ledNumber]<9:
@@ -104,9 +105,9 @@ def lightNumber(number):
     print(number)
     for i in range (len(number)):
         if number[i] == '0':
-            board.digital[N[i]].write(0)
+            GPIO.output(N[i],0)
         elif number[i] == '1':
-            board.digital[N[i]].write(1)
+            GPIO.output(N[i],1)
 decNumber = int(input('Введите число от 0 до 255: '))
 lightNumber(decNumber)
 print()
@@ -128,9 +129,9 @@ def runningPattern(pattern, direction):
             number.pop(8)
             for i in range (8):
                 if number[i] == '0':
-                    board.digital[N[i]].write(0)
+                    GPIO.output(N[i],0)
                 elif number[i] == '1':
-                    board.digital[N[i]].write(1)
+                    GPIO.output(N[i],1)
             time.sleep(period)
     elif direction == 0:
         for i in range(count):
@@ -138,9 +139,9 @@ def runningPattern(pattern, direction):
             number.pop(0)
             for i in range (8):
                 if number[i] == '0':
-                    board.digital[N[i]].write(0)
+                    GPIO.output(N[i],0)
                 elif number[i] == '1':
-                    board.digital[N[i]].write(1)
+                    GPIO.output(N[i],1)
             time.sleep(period)
 
 pattern = int(input('Введите число от 0 до 255: '))

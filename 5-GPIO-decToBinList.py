@@ -1,8 +1,9 @@
-import pyfirmata
+import RPi.GPIO as GPIO
 import time
 
-board = pyfirmata.Arduino("COM4")
-N = [2,3,4,5,6,7,8,9]
+GPIO.setmode(GPIO.BCM)
+N = [24,25,8,7,12,16,20,21]
+GPIO.setup(N, GPIO.OUT)
 
 def decToBinNumber(decNumber):
     a = bin(decNumber)

@@ -1,14 +1,15 @@
-import pyfirmata
+import RPi.GPIO as GPIO
 import time
 
-board = pyfirmata.Arduino("COM4")
-N = [2,3,4,5,6,7,8,9]
+GPIO.setmode(GPIO.BCM)
+N = [24,25,8,7,12,16,20,21]
+GPIO.setup(N, GPIO.OUT)
 
 def runningLight(count, period):
     for i in range(count):
-        board.digital[N[ledNumber]].write(1)
+        GPIO.output(N[ledNumber],1)
         time.sleep(period)
-        board.digital[N[ledNumber]].write(0)
+        GPIO.output(N[ledNumber],0)
         if N[ledNumber]<9:
             N[ledNumber]=N[ledNumber]+1
         elif N[ledNumber]>=9:

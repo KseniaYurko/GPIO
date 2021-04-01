@@ -1,12 +1,13 @@
-import pyfirmata
+import RPi.GPIO as GPIO
 import time
 
-board = pyfirmata.Arduino("COM4")
-N = [2,3,4,5,6,7,8,9]
+GPIO.setmode(GPIO.BCM)
+N = [24,25,8,7,12,16,20,21]
+GPIO.setup(N, GPIO.OUT)
 
 def closeAll(all):
     for i in range (8):
-        board.digital[N[i]].write(0)
+        GPIO.output(N[ledNumber],0)
 closeAll(all)
 
 
@@ -24,9 +25,9 @@ def runningPattern(pattern, direction):
             number.pop(8)
             for i in range (8):
                 if number[i] == '0':
-                    board.digital[N[i]].write(0)
+                    GPIO.output(N[i],0)
                 elif number[i] == '1':
-                    board.digital[N[i]].write(1)
+                    GPIO.output(N[i],1)
             time.sleep(period)
     elif direction == 0:
         for i in range(count):
@@ -34,9 +35,9 @@ def runningPattern(pattern, direction):
             number.pop(0)
             for i in range (8):
                 if number[i] == '0':
-                    board.digital[N[i]].write(0)
+                    GPIO.output(N[i],0)
                 elif number[i] == '1':
-                    board.digital[N[i]].write(1)
+                    GPIO.output(N[i],1)
             time.sleep(period)
 
 pattern = int(input('Введите число от 0 до 255: '))
