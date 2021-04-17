@@ -1,20 +1,25 @@
 import RPi.GPIO as GPIO
 import time
 
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-N = [24,25,8,7,12,16,20,21]
+N = [21,20,16,12,7,8,25,24]
 GPIO.setup(N, GPIO.OUT)
 
 def runningLight(count, period):
+    ledNumber = int(input('С какого светодиода начинать? '))
+    LED = ledNumber-1
     for i in range(count):
-        GPIO.output(N[ledNumber],1)
+        GPIO.output(N[LED],1)
         time.sleep(period)
-        GPIO.output(N[ledNumber],0)
-        if N[ledNumber]<9:
-            N[ledNumber]=N[ledNumber]+1
-        elif N[ledNumber]>=9:
-            N[ledNumber]=N[ledNumber]-7
-ledNumber = int(input('С какого светодиода начинать? '))
+        GPIO.output(N[LED],0)
+        if LED <= 7:
+            LED = LED+1
+        elif LED == 8:
+            LED = LED-8
 count = int(input('Сколько раз переключить светодиод? '))
 period = float(input('Интервал: '))
 runningLight(count, period)
+
+GPIO.output(N, 0)
+GPIO.cleanup()
