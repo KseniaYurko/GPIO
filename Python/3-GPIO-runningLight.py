@@ -3,7 +3,7 @@ import time
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-N = [21,20,16,12,7,8,25,24]
+N = [10, 9, 11, 5, 6, 13, 19, 26]
 GPIO.setup(N, GPIO.OUT)
 
 def runningLight(count, period):
@@ -13,10 +13,10 @@ def runningLight(count, period):
         GPIO.output(N[LED],1)
         time.sleep(period)
         GPIO.output(N[LED],0)
-        if LED <= 7:
+        if LED <= 6:
             LED = LED+1
-        elif LED == 8:
-            LED = LED-8
+        elif LED == 7:
+            LED = LED-7
 count = int(input('Сколько раз переключить светодиод? '))
 period = float(input('Интервал: '))
 runningLight(count, period)

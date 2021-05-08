@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BCM)
-N = [24,25,8,7,12,16,20,21]
+с
 GPIO.setup(N, GPIO.OUT)
 
 def blink(ledNumber, blinkCount, blinkPeriod):
@@ -16,3 +16,4 @@ blinkCount = int(input('Количество миганий: '))
 blinkPeriod = float(input('Интервал: '))
 blink(ledNumber, blinkCount, blinkPeriod)
  
+GPIO.cleanup()

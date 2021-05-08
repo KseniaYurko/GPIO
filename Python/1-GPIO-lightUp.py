@@ -4,7 +4,7 @@ import time
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
-N = [21,20,16,12,7,8,25,24]
+N = [26, 19, 13, 6, 5, 11, 9, 10]
 GPIO.setup(N, GPIO.OUT)
 GPIO.output(N, 0)
 
